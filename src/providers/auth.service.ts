@@ -1,4 +1,4 @@
-import { Events } from 'ionic-angular'; 
+import { Events } from 'ionic-angular';
 import { Http } from '@angular/http';
 import { Auth0Vars } from './app.constants';
 import { Storage } from '@ionic/storage';
@@ -19,7 +19,7 @@ export class AuthService
   lock = new Auth0Lock(Auth0Vars.AUTH0_CLIENT_ID, Auth0Vars.AUTH0_DOMAIN, {
 
     languageDictionary: {
-      title: 'SurgiPal'
+      title: 'Login'
     },
     rememberLastLogin:true,
     socialButtonStyle: 'small',
@@ -93,6 +93,7 @@ export class AuthService
         this.user = profile;
         this.globalId = this.user.global_user_id;
         this.roles = this.user.app_metadata.authorization.roles;
+
         this.setUsername(this.user.name);
 
       });
@@ -172,7 +173,7 @@ export class AuthService
     // Unschedule the token refresh
     this.unscheduleRefresh();
   }
-  
+
 
   public scheduleRefresh()
   {
@@ -299,7 +300,7 @@ export class AuthService
     }
   };
 
- 
+
 
   setUsername(username: string): void
   {

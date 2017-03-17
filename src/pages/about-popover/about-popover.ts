@@ -8,10 +8,8 @@ import { SupportPage } from '../support/support';
 @Component({
   template: `
     <ion-list>
-      <button ion-item (click)="close('http://surgipal.com')">SurgiPal.com</button>
-       <button ion-item (click)="close('http://surgipal.com')">SurgiPal.com</button>
-             <button ion-item (click)="close('http://surgipal.com')">SurgiPal.com</button>
-                   <button ion-item (click)="close('http://surgipal.com')">SurgiPal.com</button>
+      <button ion-item (click)="close('http://surgipal.com')">surgipal.com</button>
+       <button ion-item (click)="close('http://surgipal.azurewebsites.net')">New surgipal.com</button>
       <button ion-item (click)="support()">Support</button>
     </ion-list>
   `

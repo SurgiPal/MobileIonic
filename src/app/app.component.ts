@@ -6,8 +6,8 @@ import { Events, MenuController, Nav, Platform } from 'ionic-angular';
 import { Splashscreen } from 'ionic-native';
 
 import { AboutPage } from '../pages/about/about';
-import { AccountPage } from '../pages/account/account'; 
-import { MapPage } from '../pages/map/map'; 
+import { AccountPage } from '../pages/account/account';
+import { MapPage } from '../pages/map/map';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TutorialPage } from '../pages/tutorial/tutorial';
 import { SchedulePage } from '../pages/schedule/schedule';
@@ -15,7 +15,7 @@ import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 import { SupportPage } from '../pages/support/support';
 
 import { ConferenceData } from '../providers/conference-data';
- 
+
 export interface PageInterface {
   title: string;
   component: any;
@@ -37,9 +37,9 @@ export class ConferenceApp {
   // the left menu only works after login
   // the login page disables the left menu
   appPages: PageInterface[] = [
-    { title: 'Schedule', component: TabsPage, tabComponent: SchedulePage, icon: 'calendar' },
-    { title: 'Speakers', component: TabsPage, tabComponent: SpeakerListPage, index: 1, icon: 'contacts' },
-    { title: 'Map', component: TabsPage, tabComponent: MapPage, index: 2, icon: 'map' },
+    { title: 'Today', component: TabsPage, tabComponent: SchedulePage, icon: 'pulse' },
+    { title: 'Messages', component: TabsPage, tabComponent: SpeakerListPage, index: 1, icon: 'mail' },
+    { title: 'Stats', component: TabsPage, tabComponent: MapPage, index: 2, icon: 'stats' },
     { title: 'About', component: TabsPage, tabComponent: AboutPage, index: 3, icon: 'information-circle' }
   ];
   loggedInPages: PageInterface[] = [
@@ -55,7 +55,7 @@ export class ConferenceApp {
   rootPage: any;
 
   constructor(
-    public events: Events, 
+    public events: Events,
     public menu: MenuController,
     public platform: Platform,
     public confData: ConferenceData,
@@ -98,12 +98,14 @@ export class ConferenceApp {
 
             this.auth.checkHasSeenTutorial().then((hasSeenTutorial) =>
             {
-              if (hasSeenTutorial === null) {
-                // User has not seen tutorial
-                this.rootPage = TutorialPage;
-              } else {
-                this.rootPage =LoginPage;
-              }
+              this.rootPage = LoginPage;
+              this.auth.login();
+              // if (hasSeenTutorial === null) {
+              //   // User has not seen tutorial
+              //   this.rootPage = AboutPage;
+              // } else {
+              //   this.rootPage = AboutPage;
+              // }
               Splashscreen.hide();
             });
           }
