@@ -1,21 +1,56 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Session</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>Session</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h1>{{session.name}}</h1>
+    <h1>{{session.name}}</h1>
 
-  <h4 *ngFor="let speaker of session.speakers">
-    {{speaker.name}}
-  </h4>
+    <h4 *ngFor="let speaker of session.speakers">
+        {{speaker.name}}
+    </h4>
 
-  <p>
-    {{session.timeStart}} - {{session.timeEnd}}
-  </p>
+    <p>
+        {{session.timeStart}} - {{session.timeEnd}}
+    </p>
 
-  <p>{{session.location}}</p>
+    <p>{{session.location}}</p>
 
-  <p>{{session.description}}</p>
+    <p>{{session.description}}</p>
 </ion-content>
+
+
+
+<!--<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            Description
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item>
+            <ion-avatar item-left>
+                <img src="{{character.image}}">
+            </ion-avatar>
+            <h2>{{character.name}}</h2>
+            <p>{{character.quote}}</p>
+        </ion-item>
+
+        <ion-item *ngFor="let item of character['items']">
+            {{item.title}}
+            <ion-note item-right>
+                {{item.note}}
+            </ion-note>
+        </ion-item>
+    </ion-list>
+</ion-content>-->

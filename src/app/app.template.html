@@ -5,7 +5,7 @@
 
         <ion-header>
             <ion-toolbar>
-                <ion-title>Menu</ion-title>
+                <ion-title>SurgiPal</ion-title>
             </ion-toolbar>
         </ion-header>
 
@@ -47,7 +47,7 @@
 
         <ion-header>
             <ion-toolbar>
-                <ion-title>Menu</ion-title>
+                <ion-title>SurgiPal</ion-title>
             </ion-toolbar>
         </ion-header>
 
@@ -83,9 +83,20 @@
         </button>
             </ion-list>
 
+
+            <ion-list *ngIf="auth.authenticated() && auth.isAdmin()">
+                <ion-list-header>
+                    Admin
+                </ion-list-header>
+                <button ion-item menuClose *ngFor="let p of adminPages" (click)="openPage(p)">
+         <ion-icon item-left [name]="p.icon" [color]="isActive(p)"></ion-icon>
+          {{p.title}}
+        </button>
+            </ion-list>
         </ion-content>
 
     </ion-menu>
+
 
     <!-- main navigation -->
     <ion-nav [root]="rootPage" #content swipeBackEnabled="false" main></ion-nav>

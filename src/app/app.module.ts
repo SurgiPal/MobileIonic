@@ -1,3 +1,7 @@
+import { ParamModalComponent } from './../pages/admin/glove-size/glove-modal';
+ 
+import { GloveSizeService } from './../pages/admin/glove-size/glove-size.service';
+import { GloveSizeComponent } from './../pages/admin/glove-size/glove-size.component';
 
 import { NgModule, ErrorHandler } from '@angular/core';
 
@@ -33,7 +37,7 @@ export function getAuthHttp(http)
     tokenGetter: (() => storage.get('id_token'))
   }), http);
 }
-
+ 
 
 @NgModule({
   declarations: [
@@ -51,7 +55,9 @@ export function getAuthHttp(http)
     SpeakerListPage,
     TabsPage,
     TutorialPage,
-    SupportPage
+    SupportPage,
+    GloveSizeComponent ,
+    ParamModalComponent
   ],
   imports: [
     IonicModule.forRoot(ConferenceApp)
@@ -72,14 +78,16 @@ export function getAuthHttp(http)
     SpeakerListPage,
     TabsPage,
     TutorialPage,
-    SupportPage
+    SupportPage,
+    GloveSizeComponent ,
+    ParamModalComponent
   ],
   providers: [AuthService,
     {
       provide: AuthHttp,
       useFactory: getAuthHttp,
       deps: [Http]
-    }, { provide: ErrorHandler, useClass: IonicErrorHandler }, ConferenceData//, UserData
+    }, { provide: ErrorHandler, useClass: IonicErrorHandler }, ConferenceData, GloveSizeService//, UserData
   ]
 
 })

@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            {{ paramTitle }}
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()"> 
+        <ion-icon name="close"  ></ion-icon>
+      </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <ion-list no-lines>
+        <form [formGroup]="paramForm" (ngSubmit)="logForm()">
+            <ion-item>
+                <ion-label floating>{{ paramTitle }}</ion-label>
+                <ion-input type="text" hidden formControlName="id"></ion-input>
+                <ion-input type="text" formControlName="name"></ion-input>
+            </ion-item>
+            <ion-item color="danger" *ngIf="!paramForm.controls.name.valid  && paramForm.controls.name.dirty">
+                <p>Not a valid entry.</p>
+            </ion-item>
+            <button ion-button type="submit" [disabled]="!paramForm.valid">Save</button>
+        </form>
+    </ion-list>
+</ion-content>

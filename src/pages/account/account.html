@@ -1,23 +1,41 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
+    <ion-navbar>
+        <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Account</ion-title>
-  </ion-navbar>
+        <ion-title>Account</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content class="outer-content">
-  <div padding-top text-center *ngIf="username">
-    <img src="http://www.gravatar.com/avatar?d=mm&s=140" alt="avatar">
-    <h2>{{username}}</h2>
+    <div padding-top text-center *ngIf="username">
+        <img src="http://www.gravatar.com/avatar?d=mm&s=140" alt="avatar">
+        <h2>{{username}}</h2>
 
-    <ion-list inset>
-      <button ion-item (click)="updatePicture()">Update Picture</button>
-      <button ion-item (click)="changeUsername()">Change Username</button>
-      <button ion-item (click)="changePassword()">Change Password</button>
-      <button ion-item (click)="support()">Support</button>
-      <button ion-item (click)="logout()">Logout</button>
-    </ion-list>
-  </div>
+        <ion-list inset>
+            <button ion-item (click)="updatePicture()">Update Picture</button>
+            <button ion-item (click)="changeUsername()">Change Username</button>
+            <button ion-item (click)="changePassword()">Change Password</button>
+            <button ion-item (click)="support()">Support</button>
+            <button ion-item (click)="logout()">Logout</button>
+
+
+            <p><strong>ID: </strong> {{auth.user.global_client_id}}</p>
+            <p><strong>SpID: </strong> {{auth.surgipalId}}</p>
+            <p><strong>Name: </strong> {{auth.user.name}}</p>
+            <p><strong>Email: </strong> {{auth.user.email}}</p>
+            <p><strong>Nickname: </strong> {{auth.user.nickname}}</p>
+            <p><strong>Created At: </strong> {{auth.user.created_at}}</p>
+            <p><strong>Updated At: </strong> {{auth.user.updated_at}}</p>
+            <strong>Roles: </strong>
+            <ul>
+                <li *ngFor="let r of auth.user.authorization.roles">
+                    {{r}}
+                </li>
+            </ul>
+
+
+
+        </ion-list>
+    </div>
 </ion-content>

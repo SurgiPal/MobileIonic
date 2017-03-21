@@ -1,3 +1,4 @@
+
 import { LoginPage } from './../pages/login/login';
 import { AuthService } from './../providers/auth.service';
 import { Component, ViewChild } from '@angular/core';
@@ -13,7 +14,8 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 import { SupportPage } from '../pages/support/support';
-
+ import { GloveSizeComponent } from './../pages/admin/glove-size/glove-size.component';
+ 
 import { ConferenceData } from '../providers/conference-data';
 
 export interface PageInterface {
@@ -52,6 +54,13 @@ export class ConferenceApp {
     { title: 'Support', component: SupportPage, icon: 'help' }
      // { title: 'Signup', component: SignupPage, icon: 'person-add' }
   ];
+
+adminPages: PageInterface[] = [
+    // { title: 'Login', component: LoginPage, icon: 'log-in' },
+  { title: 'Glove Size', component: GloveSizeComponent, icon: 'hand' },
+  { title: 'Countries', component: GloveSizeComponent, index: 1,  icon: 'globe' }
+    // { title: 'Signup', component: SignupPage, icon: 'person-add' }
+  ];
   rootPage: any;
 
   constructor(
@@ -83,7 +92,7 @@ export class ConferenceApp {
             // load the conference data  REFACTOR -- INSERT RIVALS QUERY HERE
             confData.load();
 
-            this.rootPage = TabsPage;
+            this.rootPage = GloveSizeComponent;
             this.enableMenu(true);
             this.auth.startupTokenRefresh();
             // this.auth.authWithRivals();  // now handled in event handler
@@ -176,14 +185,14 @@ export class ConferenceApp {
     // Tabs are a special case because they have their own navigation
     if (childNav) {
       if (childNav.getSelected() && childNav.getSelected().root === page.tabComponent) {
-        return 'primary';
+        return 'vimeo';
       }
-      return;
+      return 'primary';
     }
 
     if (this.nav.getActive() && this.nav.getActive().component === page.component) {
-      return 'primary';
+      return 'vimeo';
     }
-    return;
+    return 'primary';
   }
 }

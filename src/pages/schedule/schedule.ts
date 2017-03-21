@@ -1,6 +1,9 @@
+import { CONFIGURATION } from './../../providers/app.constants';
+import { AuthHttp } from 'angular2-jwt';
+import { Pulse } from './../../models/pulse';
 import { AuthService } from './../../providers/auth.service';
 import { Component, ViewChild } from '@angular/core';
-
+import { Headers } from '@angular/http'; 
 import { AlertController, App, FabContainer, ItemSliding, List, ModalController, NavController, LoadingController } from 'ionic-angular';
 
 /*
@@ -12,7 +15,7 @@ import { AlertController, App, FabContainer, ItemSliding, List, ModalController,
 import { ConferenceData } from '../../providers/conference-data';
 import { ScheduleFilterPage } from '../schedule-filter/schedule-filter';
 import { SessionDetailPage } from '../session-detail/session-detail';
- 
+
 
 @Component({
   selector: 'page-schedule',
@@ -32,15 +35,15 @@ export class SchedulePage {
   shownSessions: any = [];
   groups: any = [];
   confDate: string;
-
+  private headers = new Headers({ 'Content-Type': 'application/json' });
   constructor(
+    private authHttp:AuthHttp,
     public alertCtrl: AlertController,
     public app: App,
     public loadingCtrl: LoadingController,
     public modalCtrl: ModalController,
-    public navCtrl: NavController,
-    public confData: ConferenceData,
-    public user: AuthService,
+    public navCtrl: NavController, 
+    public auth: AuthService,
   ) {}
 
   ionViewDidLoad() {
@@ -52,10 +55,62 @@ export class SchedulePage {
     // Close any open sliding items when the schedule updates
     this.scheduleList && this.scheduleList.closeSlidingItems();
 
-    this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
-      this.shownSessions = data.shownSessions;
-      this.groups = data.groups;
+
+this.presentLoading();
+    this.getAll().then(data =>
+    {
+      debugger;
+      console.log(data);
+      this.shownSessions = data;
+
+    })
+      .catch(error =>
+      {
+
+      });
+
+    // this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) =>
+    // {
+    //   this.shownSessions = data.shownSessions;
+    //   this.groups = data.groups;
+    // });
+
+
+    // this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
+    //   this.shownSessions = data.shownSessions;
+    //   this.groups = data.groups;
+    // });
+  }
+
+
+  getAll(): Promise<Pulse[]>
+  {
+    console.log('getAll()');
+    return this.authHttp.get('http://localhost:32799/api/pulse/12',{ headers: this.headers })
+      .toPromise()
+      .then(response => response.json() as Pulse[])
+      .catch(this.handleError);
+  }
+  doRefresh(refresher)
+  {
+    let url = CONFIGURATION.baseUrls.apiUrl + 'pulse/' + this.auth.surgipalId;
+    return this.authHttp.get(url, { headers: this.headers })
+      .toPromise()
+      .then(response => response.json() as Pulse[])
+      .then(refresher.complete())
+      .catch(this.handleError); 
+  }
+  private handleError(error: any): Promise<any>
+  {
+    console.log(error.message || error);
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: error.message || error,
+      buttons: ['OK']
     });
+    alert.present();
+    console.log('SERVICE ERROR', error.message || error); // for demo purposes only
+    return Promise.reject(error.message || error);
   }
 
   presentFilter() {
@@ -74,6 +129,7 @@ export class SchedulePage {
   goToSessionDetail(sessionData: any) {
     // go to the session detail page
     // and pass in the session data
+    this.presentAlert('goto ');
     this.navCtrl.push(SessionDetailPage, sessionData);
   }
 
@@ -143,5 +199,32 @@ export class SchedulePage {
       fab.close();
     });
     loading.present();
+  }
+
+
+  presentLoading()
+  {
+    let loader = this.loadingCtrl.create({
+      content: "Please wait...",
+      duration: 5000,
+      dismissOnPageChange: true
+    });
+    loader.present();
+  }
+
+  presentAlert(message:string){
+    let alert = this.alertCtrl.create({
+      title: 'Alert',
+      buttons: [{
+        text: 'OK',
+        handler: () =>
+        {
+          // close the sliding item
+         // slidingItem.close();
+        }
+      }]
+    });
+    // now present the alert on top of all other content
+    alert.present();
   }
 }

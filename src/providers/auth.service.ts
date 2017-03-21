@@ -1,6 +1,6 @@
 import { Events } from 'ionic-angular';
 import { Http } from '@angular/http';
-import { Auth0Vars } from './app.constants';
+import { Auth0Vars, CONFIGURATION } from './app.constants';
 import { Storage } from '@ionic/storage';
 import { AuthHttp, JwtHelper, tokenNotExpired } from 'angular2-jwt';
 import { Injectable, NgZone } from '@angular/core';
@@ -21,8 +21,10 @@ export class AuthService
     languageDictionary: {
       title: 'Login'
     },
+    allowSignUp:false,
     rememberLastLogin:true,
     socialButtonStyle: 'small',
+    allowedConnections: ['Username-Password-Authentication', 'facebook', 'google-oauth2'], 
     theme: {
       primaryColor: '#90a4ae',
       logo: '/assets/img/SurgiPalLogoName.png'
@@ -36,7 +38,7 @@ export class AuthService
       sso: false
     }
   });
-
+ 
   refreshToken:any;
   storage: Storage = new Storage();
   refreshSubscription: any;
@@ -92,8 +94,10 @@ export class AuthService
         this.storage.set('profile', JSON.stringify(profile));
         this.user = profile;
         this.globalId = this.user.global_user_id;
-        this.roles = this.user.app_metadata.authorization.roles;
 
+        this.getSurgiPalId(); 
+        this.roles = this.user.app_metadata.authorization.roles;
+          console.log('Roels',this.roles)
         this.setUsername(this.user.name);
 
       });
@@ -106,6 +110,17 @@ export class AuthService
 
     });
   }
+  getSurgiPalId()
+  {
+    let url = CONFIGURATION.baseUrls.apiUrl+ 'security/' + this.user.email;
+    this.authHttp.get(url)
+      .subscribe(
+      data => this.surgipalId = data.text(),
+      err => console.error(err),
+      () => console.log('Got Surgipal Id:' + this.surgipalId)
+      );
+  }
+
   public getRefreshToken()
   {
     return new Promise((resolve) =>
@@ -330,4 +345,29 @@ export class AuthService
       return value;
     });
   };
+
+  public isAdmin()
+  {
+
+    return this.user && this.user.app_metadata
+      && this.user.authorization.roles.indexOf('admin') > -1;
+  }
+  public isVendor()
+  {
+    return this.user && this.user.app_metadata
+      && this.user.authorization.roles.indexOf('vendor') > -1;
+  }
+  public isHospital()
+  {
+    return this.user && this.user.app_metadata
+      && this.user.authorization.roles.indexOf('hospital') > -1;
+
+  }
+
+  public isDoctor()
+  {
+    return this.user && this.user.app_metadata
+      && this.user.authorization.roles.indexOf('physician') > -1;
+
+  }
 }
