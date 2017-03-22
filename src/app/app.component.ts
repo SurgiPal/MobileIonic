@@ -1,3 +1,4 @@
+import { PulsePage } from './../pages/pulse/pulse';
 
 import { LoginPage } from './../pages/login/login';
 import { AuthService } from './../providers/auth.service';
@@ -11,11 +12,10 @@ import { AccountPage } from '../pages/account/account';
 import { MapPage } from '../pages/map/map';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TutorialPage } from '../pages/tutorial/tutorial';
-import { SchedulePage } from '../pages/schedule/schedule';
 import { SpeakerListPage } from '../pages/speaker-list/speaker-list';
 import { SupportPage } from '../pages/support/support';
  import { GloveSizeComponent } from './../pages/admin/glove-size/glove-size.component';
- 
+
 import { ConferenceData } from '../providers/conference-data';
 
 export interface PageInterface {
@@ -39,7 +39,7 @@ export class ConferenceApp {
   // the left menu only works after login
   // the login page disables the left menu
   appPages: PageInterface[] = [
-    { title: 'Today', component: TabsPage, tabComponent: SchedulePage, icon: 'pulse' },
+    { title: 'Today', component: TabsPage, tabComponent: PulsePage, icon: 'pulse' },
     { title: 'Messages', component: TabsPage, tabComponent: SpeakerListPage, index: 1, icon: 'mail' },
     { title: 'Stats', component: TabsPage, tabComponent: MapPage, index: 2, icon: 'stats' },
     { title: 'About', component: TabsPage, tabComponent: AboutPage, index: 3, icon: 'information-circle' }
@@ -92,38 +92,39 @@ adminPages: PageInterface[] = [
             // load the conference data  REFACTOR -- INSERT RIVALS QUERY HERE
             confData.load();
 
-            this.rootPage = GloveSizeComponent;
+            this.rootPage = TabsPage;
             this.enableMenu(true);
             this.auth.startupTokenRefresh();
             // this.auth.authWithRivals();  // now handled in event handler
             this.events.publish('user:authenticated', 'app.component startup');
 
-            Splashscreen.hide();
+
 
           } else {
             console.log('isAuthenticated: false');
             // Should FAIL
           //  this.auth.authWithRivals();
 
-            this.auth.checkHasSeenTutorial().then((hasSeenTutorial) =>
-            {
-              this.rootPage = LoginPage;
-              this.auth.login();
-              // if (hasSeenTutorial === null) {
-              //   // User has not seen tutorial
-              //   this.rootPage = AboutPage;
-              // } else {
-              //   this.rootPage = AboutPage;
-              // }
-              Splashscreen.hide();
-            });
+            this.auth.login();
+            // this.auth.checkHasSeenTutorial().then((hasSeenTutorial) =>
+            // {
+            //   this.rootPage = LoginPage;
+            //   this.auth.login();
+            //   // if (hasSeenTutorial === null) {
+            //   //   // User has not seen tutorial
+            //   //   this.rootPage = AboutPage;
+            //   // } else {
+            //   //   this.rootPage = AboutPage;
+            //   // }
+            //   Splashscreen.hide();
+            // });
           }
         })
         .catch((err) =>
         {
           console.log('startup auth error:', err);
         })
-
+      Splashscreen.hide();
       this.listenToLoginEvents();
 
     });
@@ -185,13 +186,13 @@ adminPages: PageInterface[] = [
     // Tabs are a special case because they have their own navigation
     if (childNav) {
       if (childNav.getSelected() && childNav.getSelected().root === page.tabComponent) {
-        return 'vimeo';
+        return 'secondary';
       }
       return 'primary';
     }
 
     if (this.nav.getActive() && this.nav.getActive().component === page.component) {
-      return 'vimeo';
+      return 'secondary';
     }
     return 'primary';
   }

@@ -1,0 +1,98 @@
+<ion-header>
+    <ion-navbar no-border-bottom>
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+        <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
+            <ion-segment-button value="all">
+                All
+            </ion-segment-button>
+            <ion-segment-button value="favorites">
+                Favorites
+            </ion-segment-button>
+        </ion-segment>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="presentFilter()">
+        <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+      </button>
+        </ion-buttons>
+    </ion-navbar>
+
+    <ion-toolbar no-border-top>
+        <ion-searchbar color="primary" [(ngModel)]="queryText" (ionInput)="updateSchedule()" placeholder="Search">
+        </ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+
+
+    <ion-list #scheduleList [hidden]="surgeries === 0">
+        <ion-card *ngFor="let p of surgeries">
+            <ion-item-sliding #pulse>
+                <ion-item>
+                    <ion-thumbnail item-left>
+                        <img src="/assets/img/{{p.imageName}}">
+                    </ion-thumbnail>
+                    <h2>{{p.term | date:'shortDate' }}</h2>
+                    <h2>{{p.patient}}</h2>
+                    <p>{{p.initials}}</p>
+                </ion-item>
+                <ion-item-options side="left">
+                    <button ion-button small color="secondary" (click)="showEditCPTCodes(p)"><ion-icon name=barcode>CPT</ion-icon></button>
+                </ion-item-options>
+                <ion-item-options side="right">
+                    <button ion-button small color="favorite" (click)="billSurgery(p)"><ion-icon name="cash">Bill</ion-icon></button>
+                    <button ion-button small color="danger" (click)="cancelSurgery(p,pulse)"><ion-icon name="hand">Cancel</ion-icon></button>
+                </ion-item-options>
+            </ion-item-sliding>
+            <ion-card-content>
+                <p>{{p.cpt}}</p>
+                <p>{{ p.diagnosisCode}}
+            </ion-card-content>
+            <ion-row>
+                <ion-col>
+                    <button ion-button icon-left clear small>
+        <ion-icon name="thumbs-up"></ion-icon>
+        <div>Status:{{p.speciality}}</div>
+      </button>
+                </ion-col>
+                <ion-col>
+                    <button ion-button icon-left clear small>
+        <ion-icon name="text"></ion-icon>
+        <div>Hospital :{{p.hospitalname}}</div>
+      </button>
+                </ion-col>
+                <ion-col center text-center>
+                    <ion-note>
+                        {{p.created_at | date:'shortDate' }}
+                    </ion-note>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+    </ion-list>
+
+
+    <ion-list-header [hidden]="surgeries > 0">
+        No Surgeries Today!
+    </ion-list-header>
+
+    <!--<ion-fab bottom right #fab>
+    <button ion-fab><ion-icon name="share"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab color="vimeo" (click)="openSocial('Vimeo', fab)"><ion-icon name="logo-vimeo"></ion-icon></button>
+      <button ion-fab color="google" (click)="openSocial('Google+', fab)"><ion-icon name="logo-googleplus"></ion-icon></button>
+      <button ion-fab color="twitter" (click)="openSocial('Twitter', fab)"><ion-icon name="logo-twitter"></ion-icon></button>
+      <button ion-fab color="facebook" (click)="openSocial('Facebook', fab)"><ion-icon name="logo-facebook"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>-->
+
+
+</ion-content>

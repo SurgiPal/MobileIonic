@@ -1,16 +1,26 @@
 {
-    "name": "ionic-conference-app",
-    "description": "Ionic Conference App",
+    "name": "surgipalmobile",
+    "description": "A physician driven cloud-based preference card system and OR platform for surgeries and procedures.",
     "license": "Apache-2.0",
+    "version": "0.0.1",
+    "author": {
+        "email": "raphael.thiney@gmail.com",
+        "name": "Raphael Thiney",
+        "url": "http://surgipal.com"
+    },
+    "keywords": [
+        "Preference Cards, Surgery,Vendors,Hospitals"
+    ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/driftyco/ionic-conference-app.git"
+        "url": "https://github.com/rthiney/MobileIonic.git"
     },
     "scripts": {
         "build": "ionic-app-scripts build",
         "clean": "ionic-app-scripts clean",
         "ionic:build": "ionic-app-scripts build",
-        "ionic:serve": "ionic-app-scripts serve"
+        "ionic:serve": "ionic-app-scripts serve",
+        "android:release": "ionic build android --prod --release"
     },
     "dependencies": {
         "@angular/common": "2.4.8",

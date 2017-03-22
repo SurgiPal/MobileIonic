@@ -17,14 +17,15 @@ export class AuthService
   jwtHelper: JwtHelper = new JwtHelper();
   auth0 = new Auth0({ clientID: Auth0Vars.AUTH0_CLIENT_ID, domain: Auth0Vars.AUTH0_DOMAIN });
   lock = new Auth0Lock(Auth0Vars.AUTH0_CLIENT_ID, Auth0Vars.AUTH0_DOMAIN, {
-
+//https://github.com/auth0/lock#theming-options
     languageDictionary: {
-      title: 'Login'
+      title: 'Welcome!'
     },
-    allowSignUp:false,
+    allowSignUp:true,
+    signUpLink:'https://surgipal.com/register/',
     rememberLastLogin:true,
     socialButtonStyle: 'small',
-    allowedConnections: ['Username-Password-Authentication', 'facebook', 'google-oauth2'], 
+    allowedConnections: ['Username-Password-Authentication', 'facebook', 'google-oauth2'],
     theme: {
       primaryColor: '#90a4ae',
       logo: '/assets/img/SurgiPalLogoName.png'
@@ -38,7 +39,7 @@ export class AuthService
       sso: false
     }
   });
- 
+
   refreshToken:any;
   storage: Storage = new Storage();
   refreshSubscription: any;
@@ -95,7 +96,8 @@ export class AuthService
         this.user = profile;
         this.globalId = this.user.global_user_id;
 
-        this.getSurgiPalId(); 
+        this.getSurgiPalId();
+        this.storage.set('surgipal_id', this.surgipalId);
         this.roles = this.user.app_metadata.authorization.roles;
           console.log('Roels',this.roles)
         this.setUsername(this.user.name);
@@ -115,7 +117,7 @@ export class AuthService
     let url = CONFIGURATION.baseUrls.apiUrl+ 'security/' + this.user.email;
     this.authHttp.get(url)
       .subscribe(
-      data => this.surgipalId = data.text(),
+      data => { this.surgipalId = data.text(); this.storage.set('surgipal_id', data.text());},
       err => console.error(err),
       () => console.log('Got Surgipal Id:' + this.surgipalId)
       );
@@ -178,12 +180,13 @@ export class AuthService
   public logout()
   {
     this.storage.remove('profile');
+    this.storage.remove('surgipal_id');
     this.storage.remove('id_token');
-    this.idToken = null;
     this.storage.remove('refresh_token');
     this.storage.remove(this.HAS_LOGGED_IN);
     this.storage.remove('username');
     this.events.publish('user:logout');
+    this.idToken = null;
     this.zoneImpl.run(() => this.user = null);
     // Unschedule the token refresh
     this.unscheduleRefresh();

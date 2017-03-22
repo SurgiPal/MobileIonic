@@ -16,7 +16,7 @@
             <ion-item>
                 <ion-label floating>{{ paramTitle }}</ion-label>
                 <ion-input type="text" hidden formControlName="id"></ion-input>
-                <ion-input type="text" formControlName="name"></ion-input>
+                <ion-input type="text" formControlName="name" required></ion-input>
             </ion-item>
             <ion-item color="danger" *ngIf="!paramForm.controls.name.valid  && paramForm.controls.name.dirty">
                 <p>Not a valid entry.</p>

@@ -1,5 +1,7 @@
+import { CodeDetails } from './../pages/pulse/code-details';
+import { PulsePage } from './../pages/pulse/pulse';
 import { ParamModalComponent } from './../pages/admin/glove-size/glove-modal';
- 
+
 import { GloveSizeService } from './../pages/admin/glove-size/glove-size.service';
 import { GloveSizeComponent } from './../pages/admin/glove-size/glove-size.component';
 
@@ -12,7 +14,6 @@ import { PopoverPage } from '../pages/about-popover/about-popover';
 import { AccountPage } from '../pages/account/account';
 import { LoginPage } from '../pages/login/login';
 import { MapPage } from '../pages/map/map';
-import { SchedulePage } from '../pages/schedule/schedule';
 import { ScheduleFilterPage } from '../pages/schedule-filter/schedule-filter';
 import { SessionDetailPage } from '../pages/session-detail/session-detail';
 import { SignupPage } from '../pages/signup/signup';
@@ -28,6 +29,7 @@ import { ConferenceData } from '../providers/conference-data';
 //import { UserData } from '../providers/user-data';
 
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
+import { PulseService } from "../pages/pulse/pulse.services";
 let storage: Storage = new Storage();
 
 export function getAuthHttp(http)
@@ -37,7 +39,7 @@ export function getAuthHttp(http)
     tokenGetter: (() => storage.get('id_token'))
   }), http);
 }
- 
+
 
 @NgModule({
   declarations: [
@@ -47,7 +49,6 @@ export function getAuthHttp(http)
     LoginPage,
     MapPage,
     PopoverPage,
-    SchedulePage,
     ScheduleFilterPage,
     SessionDetailPage,
     SignupPage,
@@ -57,7 +58,9 @@ export function getAuthHttp(http)
     TutorialPage,
     SupportPage,
     GloveSizeComponent ,
-    ParamModalComponent
+    ParamModalComponent,
+    PulsePage,
+    CodeDetails
   ],
   imports: [
     IonicModule.forRoot(ConferenceApp)
@@ -70,7 +73,7 @@ export function getAuthHttp(http)
     LoginPage,
     MapPage,
     PopoverPage,
-    SchedulePage,
+    PulsePage,
     ScheduleFilterPage,
     SessionDetailPage,
     SignupPage,
@@ -80,14 +83,15 @@ export function getAuthHttp(http)
     TutorialPage,
     SupportPage,
     GloveSizeComponent ,
-    ParamModalComponent
+    ParamModalComponent,
+    CodeDetails
   ],
   providers: [AuthService,
     {
       provide: AuthHttp,
       useFactory: getAuthHttp,
       deps: [Http]
-    }, { provide: ErrorHandler, useClass: IonicErrorHandler }, ConferenceData, GloveSizeService//, UserData
+    }, { provide: ErrorHandler, useClass: IonicErrorHandler }, ConferenceData, GloveSizeService, PulseService//, UserData
   ]
 
 })

@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-navbar *navbar>
+        <ion-buttons start>
+            <button (click)="dismiss()">
+      Cancel
+    </button>
+        </ion-buttons>
+        <ion-title>CPT Codes</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content padding class="sample-modal-page">
+    <div> Here are the codes for surgery <strong>{{ pulseItem.surgeryName }}</strong></div>
+    <ion-list *ngFor="let c of codes">
+
+        <ion-chip #chip>
+            <ion-label>{{ c }}</ion-label>
+            <button ion-button (click)="delete(chip)">
+    <ion-icon name="close"></ion-icon>
+  </button>
+        </ion-chip>
+    </ion-list>
+    <button ion-button block (click)="dismiss()" color="secondary">Done</button>
+</ion-content>

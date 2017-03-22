@@ -2,8 +2,7 @@
 import { Component } from '@angular/core';
 import { App, LoadingController, AlertController, ToastController, ModalController } from 'ionic-angular';
 import { ParamModalComponent } from './glove-modal';
-import { CONFIGURATION } from './../../../providers/app.constants';
-
+ 
 
 // Sevices
 import { GloveSizeService, } from './glove-size.service';

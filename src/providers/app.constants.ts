@@ -8,11 +8,10 @@ export class Auth0Vars
 export let CONFIGURATION = {
   environment: "DEV",
   baseUrls: {
-    server: 'http://localhost:32799/',
-   // server: 'http://surgipalapi.azurewebsites.net/',
+  //  server: 'http://localhost:32799/',
+    server: 'http://surgipalapi.azurewebsites.net/',
     //server: 'https://foodchooser.azurewebsites.net/',
-    apiUrl: this.server +'api/'
+    apiUrl: 'http://surgipalapi.azurewebsites.net/api/'
   }
 }
 
- 
