@@ -1,42 +1,46 @@
+
+import { AuthService } from './../../providers/auth.service';
 import { Component } from '@angular/core';
-
-import { ActionSheet, ActionSheetController, Config, NavController } from 'ionic-angular';
+import { ActionSheet, ActionSheetController, Config, NavController, LoadingController, App } from 'ionic-angular';
 import { InAppBrowser } from 'ionic-native';
-
-import { ConferenceData } from '../../providers/conference-data';
-import { SessionDetailPage } from '../session-detail/session-detail';
-import { SpeakerDetailPage } from '../speaker-detail/speaker-detail';
+import { MessageDetailPage } from '../message-detail/message-detail';
+import { MessageService } from "./message.service";
 
 
 @Component({
-  selector: 'page-speaker-list',
-  templateUrl: 'speaker-list.html'
+  selector: 'page-message',
+  templateUrl: 'message.html'
 })
-export class SpeakerListPage {
+export class MessageListPage {
   actionSheet: ActionSheet;
-  speakers: any[] = [];
+  messages: any = [];
 
   constructor(
+    public app: App,
+    private auth : AuthService,
+    public loadingCtrl: LoadingController,
+    private _service : MessageService,
     public actionSheetCtrl: ActionSheetController,
     public navCtrl: NavController,
-    public confData: ConferenceData,
     public config: Config
-  ) { }
+  ) {
+    this.app.setTitle('Messages');
+   }
 
   ionViewDidLoad() {
-    this.confData.getSpeakers().subscribe((speakers: any[]) => {
-
-      this.speakers = speakers;
-      console.log('speakers',this.speakers)
+    this.presentLoading();
+    this._service.getAll().then(data => {
+      console.log('Got messages from service:', data)
+      this.messages = data;
     });
   }
 
   goToSessionDetail(session: any) {
-    this.navCtrl.push(SessionDetailPage, session);
+    this.navCtrl.push(MessageDetailPage, session);
   }
 
   goToSpeakerDetail(speakerName: any) {
-    this.navCtrl.push(SpeakerDetailPage, speakerName);
+    this.navCtrl.push(MessageDetailPage, speakerName);
   }
 
   goToSpeakerTwitter(speaker: any) {
@@ -94,4 +98,17 @@ export class SpeakerListPage {
 
     actionSheet.present();
   }
+
+  presentLoading()
+  {
+    let loader = this.loadingCtrl.create({
+      content: "Getting Messages...",
+      duration: 2000,
+      dismissOnPageChange: true
+    });
+    loader.present();
+  }
+
+
+
 }

@@ -1,3 +1,4 @@
+import { MessageListPage } from './../pages/message/message';
 import { PulsePage } from './../pages/pulse/pulse';
 
 import { LoginPage } from './../pages/login/login';
@@ -40,9 +41,10 @@ export class ConferenceApp {
   // the login page disables the left menu
   appPages: PageInterface[] = [
     { title: 'Today', component: TabsPage, tabComponent: PulsePage, icon: 'pulse' },
-    { title: 'Messages', component: TabsPage, tabComponent: SpeakerListPage, index: 1, icon: 'mail' },
-    { title: 'Stats', component: TabsPage, tabComponent: MapPage, index: 2, icon: 'stats' },
-    { title: 'About', component: TabsPage, tabComponent: AboutPage, index: 3, icon: 'information-circle' }
+    { title: 'Speakers', component: TabsPage, tabComponent: SpeakerListPage, index: 1, icon: 'person' },
+    { title: 'Messages', component: TabsPage, tabComponent: MessageListPage, index: 2, icon: 'mail' },
+    { title: 'Stats', component: TabsPage, tabComponent: MapPage, index: 3, icon: 'stats' },
+    { title: 'About', component: TabsPage, tabComponent: AboutPage, index: 4, icon: 'information-circle' }
   ];
   loggedInPages: PageInterface[] = [
     { title: 'Account', component: AccountPage, icon: 'person' },

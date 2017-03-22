@@ -47,10 +47,11 @@
                 </ion-item>
                 <ion-item-options side="left">
                     <button ion-button small color="secondary" (click)="showEditCPTCodes(p)"><ion-icon name=barcode>CPT</ion-icon></button>
+                    <button ion-button small color="secondary" (click)="showEditCPTCodes(p)"><ion-icon name=barcode>DX</ion-icon></button>
                 </ion-item-options>
                 <ion-item-options side="right">
                     <button ion-button small color="favorite" (click)="billSurgery(p)"><ion-icon name="cash">Bill</ion-icon></button>
-                    <button ion-button small color="danger" (click)="cancelSurgery(p,pulse)"><ion-icon name="hand">Cancel</ion-icon></button>
+                    <button ion-button small color="danger" (click)="cancelSurgery(p,pulse)"><ion-icon name="highlight-off"> </ion-icon></button>
                 </ion-item-options>
             </ion-item-sliding>
             <ion-card-content>

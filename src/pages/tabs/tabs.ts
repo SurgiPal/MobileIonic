@@ -1,3 +1,4 @@
+import { MessageListPage } from './../message/message';
 import { PulsePage } from './../pulse/pulse';
 import { Component } from '@angular/core';
 
@@ -15,12 +16,13 @@ export class TabsPage {
   // set the root pages for each tab
   tab1Root: any = PulsePage;
   tab2Root: any = SpeakerListPage;
-  tab3Root: any = MapPage;
-  tab4Root: any = AboutPage;
+  tab3Root: any = MessageListPage;
+  tab4Root: any = MapPage;
+  tab5Root: any = AboutPage; 
   mySelectedIndex: number;
 
   constructor(navParams: NavParams) {
-    this.mySelectedIndex = navParams.data.tabIndex || 0;
+    this.mySelectedIndex = navParams.data.tabIndex || 2;
   }
 
 }

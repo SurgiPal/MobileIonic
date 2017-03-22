@@ -65,11 +65,17 @@ export class AuthService
     {
       console.log(error);
     });
-
     this.storage.get('id_token').then(token =>
     {
       this.idToken = token;
     });
+    this.storage.get('surgipal_id').then(spid =>
+    {
+      this.surgipalId = spid;
+    });
+
+
+
 
     this.lock.on('authenticated', authResult =>
     {

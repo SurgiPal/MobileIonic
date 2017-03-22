@@ -1,3 +1,5 @@
+import { MessageDetailPage } from './../pages/message-detail/message-detail';
+import { MessageService } from './../pages/message/message.service';
 import { CodeDetails } from './../pages/pulse/code-details';
 import { PulsePage } from './../pages/pulse/pulse';
 import { ParamModalComponent } from './../pages/admin/glove-size/glove-modal';
@@ -30,6 +32,7 @@ import { ConferenceData } from '../providers/conference-data';
 
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 import { PulseService } from "../pages/pulse/pulse.services";
+import { MessageListPage } from "../pages/message/message";
 let storage: Storage = new Storage();
 
 export function getAuthHttp(http)
@@ -60,7 +63,8 @@ export function getAuthHttp(http)
     GloveSizeComponent ,
     ParamModalComponent,
     PulsePage,
-    CodeDetails
+    CodeDetails,
+    MessageListPage,MessageDetailPage
   ],
   imports: [
     IonicModule.forRoot(ConferenceApp)
@@ -84,14 +88,18 @@ export function getAuthHttp(http)
     SupportPage,
     GloveSizeComponent ,
     ParamModalComponent,
-    CodeDetails
+    CodeDetails, MessageListPage, MessageDetailPage
   ],
   providers: [AuthService,
     {
       provide: AuthHttp,
       useFactory: getAuthHttp,
       deps: [Http]
-    }, { provide: ErrorHandler, useClass: IonicErrorHandler }, ConferenceData, GloveSizeService, PulseService//, UserData
+    }, { provide: ErrorHandler, useClass: IonicErrorHandler },
+    ConferenceData,
+    GloveSizeService,
+    PulseService,
+    MessageService
   ]
 
 })
