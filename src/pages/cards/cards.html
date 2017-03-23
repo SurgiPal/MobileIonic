@@ -1,0 +1,85 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+        <ion-title>Preferences Card</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+
+
+
+    <ion-segment [(ngModel)]="profileSegment" color="primary">
+        <ion-segment-button value="create">
+            Create
+        </ion-segment-button>
+        <ion-segment-button value="copy">
+            Copy
+        </ion-segment-button>
+        <ion-segment-button value="search">
+            Search
+        </ion-segment-button>
+    </ion-segment>
+
+
+    <div [ngSwitch]="profileSegment" padding>
+
+
+        <div *ngSwitchCase="'create'">
+
+            <ion-item>
+                <ion-label fixed>Hospitals</ion-label>
+                <ion-select [(ngModel)]="hospitalId">
+                    <ion-option *ngFor="let h of hospitals" value="{{h.id}}">{{h.name}}</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label fixed>Template</ion-label>
+                <ion-select [(ngModel)]="templateId" placeholder="choose template">
+                    <ion-option *ngFor="let t of templates" value="{{t.id}}">{{t.name}}</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label fixed>Name</ion-label>
+                <ion-input type="text" placeholder="Enter name for card..."></ion-input>
+            </ion-item>
+
+            <button ion-button outline text-center item-right icon-left (click)="createCard()" color="secondary">
+      <ion-icon name="add"></ion-icon>
+     Add
+    </button>
+
+            <ion-row>
+                <ion-col text-center> <button></button> </ion-col>
+            </ion-row>
+
+
+        </div>
+
+
+        <div *ngSwitchCase="'copy'">
+            <ion-item>
+                <ion-label floating>Surgeon</ion-label>
+                <ion-select [(ngModel)]="gaming">
+                    <ion-option value="nes">NES</ion-option>
+                    <ion-option value="n64">Nintendo64</ion-option>
+                    <ion-option value="ps">PlayStation</ion-option>
+                    <ion-option value="genesis">Sega Genesis</ion-option>
+                    <ion-option value="saturn">Sega Saturn</ion-option>
+                    <ion-option value="snes">SNES</ion-option>
+                </ion-select>
+            </ion-item>
+        </div>
+
+        <div *ngSwitchCase="'search'">
+
+            <ion-searchbar (ionInput)="getQuestion($event)" color="light"></ion-searchbar>
+            <ion-list>
+                <ion-item *ngFor="let item of items">
+                    {{ item }}
+                </ion-item>
+            </ion-list>
+        </div>
+    </div>
+</ion-content>

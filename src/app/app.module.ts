@@ -1,8 +1,9 @@
+import { NotifyService } from './../providers/notify.service';
 import { MessageDetailPage } from './../pages/message-detail/message-detail';
 import { MessageService } from './../pages/message/message.service';
 import { CodeDetails } from './../pages/pulse/code-details';
 import { PulsePage } from './../pages/pulse/pulse';
-import { ParamModalComponent } from './../pages/admin/glove-size/glove-modal';
+import { ParamModal } from './../pages/admin/glove-size/glove-modal';
 
 import { GloveSizeService } from './../pages/admin/glove-size/glove-size.service';
 import { GloveSizeComponent } from './../pages/admin/glove-size/glove-size.component';
@@ -61,7 +62,7 @@ export function getAuthHttp(http)
     TutorialPage,
     SupportPage,
     GloveSizeComponent ,
-    ParamModalComponent,
+    ParamModal,
     PulsePage,
     CodeDetails,
     MessageListPage,MessageDetailPage
@@ -87,7 +88,7 @@ export function getAuthHttp(http)
     TutorialPage,
     SupportPage,
     GloveSizeComponent ,
-    ParamModalComponent,
+    ParamModal,
     CodeDetails, MessageListPage, MessageDetailPage
   ],
   providers: [AuthService,
@@ -96,6 +97,7 @@ export function getAuthHttp(http)
       useFactory: getAuthHttp,
       deps: [Http]
     }, { provide: ErrorHandler, useClass: IonicErrorHandler },
+    NotifyService,
     ConferenceData,
     GloveSizeService,
     PulseService,

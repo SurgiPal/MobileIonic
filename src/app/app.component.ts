@@ -175,12 +175,6 @@ adminPages: PageInterface[] = [
     this.menu.enable(!loggedIn, 'loggedOutMenu');
   }
 
-  platformReady() {
-    // Call any initial plugins when ready
-    this.platform.ready().then(() => {
-      Splashscreen.hide();
-    });
-  }
 
   isActive(page: PageInterface) {
     let childNav = this.nav.getActiveChildNav();

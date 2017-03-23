@@ -8,8 +8,9 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 @Component({ 
   templateUrl: './../param.modal.html' 
 }) 
-export class ParamModalComponent
+export class ParamModal 
 { 
+  
   private paramForm: FormGroup;
   param : Param; 
   public paramTitle: string= "Glove Size";

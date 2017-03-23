@@ -6,19 +6,19 @@
         <ion-title>Messages</ion-title>
     </ion-navbar>
 </ion-header>
-<ion-content class="outer-content speaker-list">
+<!--<ion-content class="outer-content speaker-list">
     <ion-list>
         <ion-item *ngFor="let m of messages">
             <ion-avatar item-left>
-                <!--<img src="{{m.doctorImage}}">-->
+            <img src="{{m.doctorImage}}">
             </ion-avatar>
             <h2>{{m.subject}}</h2>
             <p>{{m.message}}</p>
         </ion-item>
 
     </ion-list>
-</ion-content>
-<!--<ion-content class="outer-content speaker-list">
+</ion-content>-->
+<ion-content class="outer-content speaker-list">
     <ion-list>
         <ion-grid fixed>
             <ion-row align-items-stretch>
@@ -26,52 +26,42 @@
                     <ion-card class="speaker-card">
 
                         <ion-card-header>
-                            <button ion-item detail-none (click)="goToSpeakerDetail(m)">
-        <ion-avatar item-left>
-          <img [src]="m.doctorImage" alt="Speaker profile pic">
-        </ion-avatar>
+                            <button ion-item detail-none (click)="showDetails(m)">
         {{m.subject}}
       </button>
                         </ion-card-header>
 
                         <ion-card-content class="outer-content">
+                            <h3>{{m.message}}</h3>
                             <ion-list>
-                                <button ion-item *ngFor="let session of speaker.sessions" (click)="goToSessionDetail(m)">
-          <h3>{{m.message}}</h3>
-        </button>
 
-                                <button ion-item (click)="goToSpeakerDetail(m)">
-          <h3>About {{m.doctorName}}</h3>
-        </button>
+
                             </ion-list>
                         </ion-card-content>
 
                         <ion-row no-padding>
-                            <ion-col>
-                                <button ion-button clear small color="primary" icon-left (click)="goToSpeakerTwitter(m)">
-          <ion-icon name="logo-twitter"></ion-icon>
-          Tweet
+                            <ion-col text-left>
+                                <button ion-button clear small color="primary" icon-left (click)="reply(m)">
+          <ion-icon name='undo'></ion-icon>
+         Reply
         </button>
                             </ion-col>
                             <ion-col text-center>
-                                <button ion-button clear small color="primary" icon-left (click)="openSpeakerShare(m)">
+                                <button ion-button clear small color="primary" icon-left (click)="showDetails(m)">
           <ion-icon name='share-alt'></ion-icon>
-         Share
+         Details
         </button>
                             </ion-col>
                             <ion-col text-right>
-                                <button ion-button clear small color="primary" icon-left (click)="openContact(m)">
+                                <button ion-button clear small color="primary" icon-left (click)="showContactInfo(m)">
           <ion-icon name='chatboxes'></ion-icon>
           Contact
         </button>
                             </ion-col>
                         </ion-row>
-
                     </ion-card>
-
-
                 </ion-col>
             </ion-row>
         </ion-grid>
     </ion-list>
-</ion-content>-->
+</ion-content>

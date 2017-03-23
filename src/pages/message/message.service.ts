@@ -1,3 +1,6 @@
+import { LoggerService } from './../../providers/logger.services';
+import { FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Message } from './../../models/message';
 import { AuthService } from './../../providers/auth.service';
 // import { Headers } from '@angular/http';
@@ -12,7 +15,7 @@ export class MessageService
 {
 
 
-  constructor(private authHttp: AuthHttp, private auth: AuthService)
+  constructor(private authHttp: AuthHttp, private auth: AuthService,private logger : LoggerService)
   {
 
   }
@@ -25,7 +28,19 @@ export class MessageService
       .then(response => response.json() as Message[])
       .catch(this.handleError);
   }
+ 
 
+  sendEmail(emailForm: FormGroup): Promise<Message>
+{
+    var url = CONFIGURATION.baseUrls.apiUrl + 'messages';
+    console.log(emailForm.value);
+    this.logger.console('sendEmail:', emailForm);
+  return this.authHttp
+    .post(url,  emailForm.value  )
+    .toPromise()
+    .then(res => res.json())
+    .catch(this.handleError);
+}
   // getMessages()
   // {
   //   var url = CONFIGURATION.baseUrls.apiUrl + 'messages/doctors/' + this.auth.surgipalId;

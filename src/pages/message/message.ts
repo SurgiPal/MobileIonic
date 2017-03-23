@@ -1,7 +1,8 @@
+import { MessageReplyModal } from './message-reply';
 
 import { AuthService } from './../../providers/auth.service';
 import { Component } from '@angular/core';
-import { ActionSheet, ActionSheetController, Config, NavController, LoadingController, App } from 'ionic-angular';
+import { ActionSheet, ActionSheetController, Config, NavController, LoadingController, App, ModalController, ToastController } from 'ionic-angular';
 import { InAppBrowser } from 'ionic-native';
 import { MessageDetailPage } from '../message-detail/message-detail';
 import { MessageService } from "./message.service";
@@ -22,6 +23,8 @@ export class MessageListPage {
     private _service : MessageService,
     public actionSheetCtrl: ActionSheetController,
     public navCtrl: NavController,
+    public toastCtrl: ToastController,
+    public modalCtrl:ModalController,
     public config: Config
   ) {
     this.app.setTitle('Messages');
@@ -29,68 +32,56 @@ export class MessageListPage {
 
   ionViewDidLoad() {
     this.presentLoading();
-    this._service.getAll().then(data => {
-      console.log('Got messages from service:', data)
-      this.messages = data;
+    this.refreshData();
+  }
+ 
+ refreshData(){
+   this._service.getAll().then(data =>
+   {
+     console.log('Got messages from service:', data)
+     this.messages = data;
+   });
+ }
+  reply(msg?)
+  {
+    let modal = this.modalCtrl.create(MessageReplyModal, msg);
+    modal.present();
+
+    modal.onWillDismiss((data: string) =>
+    {
+      if (data) {
+        this.presentToast(data);
+        this.refreshData();
+      }
     });
   }
 
-  goToSessionDetail(session: any) {
-    this.navCtrl.push(MessageDetailPage, session);
-  }
 
-  goToSpeakerDetail(speakerName: any) {
-    this.navCtrl.push(MessageDetailPage, speakerName);
-  }
 
-  goToSpeakerTwitter(speaker: any) {
-    new InAppBrowser(`https://twitter.com/${speaker.twitter}`, '_blank');
-  }
 
-  openSpeakerShare(speaker: any) {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: 'Share ' + speaker.name,
-      buttons: [
-        {
-          text: 'Copy Link',
-          handler: ($event: Event) => {
-            console.log('Copy link clicked on https://twitter.com/' + speaker.twitter);
-            if ((window as any)['cordova'] && (window as any)['cordova'].plugins.clipboard) {
-              (window as any)['cordova'].plugins.clipboard.copy('https://twitter.com/' + speaker.twitter);
-            }
-          }
-        },
-        {
-          text: 'Share via ...'
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        }
-      ]
-    });
 
-    actionSheet.present();
-  }
 
-  openContact(speaker: any) {
+  showDetails(msg: any) {
+    this.navCtrl.push(MessageDetailPage, msg);
+  } 
+  showContactInfo(msg: any) {
     let mode = this.config.get('mode');
 
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Contact ' + speaker.name,
+      title: 'Contact ' + msg.name,
       buttons: [
         {
-          text: `Email ( ${speaker.email} )`,
+          text: `Email ( ${msg.email} )`,
           icon: mode !== 'ios' ? 'mail' : null,
           handler: () => {
-            window.open('mailto:' + speaker.email);
+            window.open('mailto:' + msg.email);
           }
         },
         {
-          text: `Call ( ${speaker.phone} )`,
+          text: `Call ( ${msg.phone} )`,
           icon: mode !== 'ios' ? 'call' : null,
           handler: () => {
-            window.open('tel:' + speaker.phone);
+            window.open('tel:' + msg.phone);
           }
         }
       ]
@@ -103,12 +94,21 @@ export class MessageListPage {
   {
     let loader = this.loadingCtrl.create({
       content: "Getting Messages...",
-      duration: 2000,
+      duration: 5000,
       dismissOnPageChange: true
     });
     loader.present();
   }
-
+  presentToast(message: string)
+  {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'bottom',
+      showCloseButton: true
+    });
+    toast.present();
+  } 
 
 
 }
