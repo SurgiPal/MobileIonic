@@ -23,7 +23,7 @@
  */
 
 'use strict';
-import * as models from './models';
+import * as models from './';
 
 export interface Exclusioner {
     

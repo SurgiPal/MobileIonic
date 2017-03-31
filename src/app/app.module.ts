@@ -1,3 +1,4 @@
+import { LoggerService } from './../providers/logger.services';
 import { NotifyService } from './../providers/notify.service';
 import { MessageDetailPage } from './../pages/message-detail/message-detail';
 import { MessageService } from './../pages/message/message.service';
@@ -101,7 +102,8 @@ export function getAuthHttp(http)
     ConferenceData,
     GloveSizeService,
     PulseService,
-    MessageService
+    MessageService,
+    LoggerService
   ]
 
 })

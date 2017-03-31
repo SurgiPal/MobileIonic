@@ -9,7 +9,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 
 @Component({
-  templateUrl: './../message-reply.html'
+  templateUrl: './message-reply.html'
 })
 export class MessageReplyModal
 {

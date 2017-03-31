@@ -1,8 +1,12 @@
 <ion-tabs [selectedIndex]="mySelectedIndex">
     <ion-tab [root]="tab1Root" tabTitle="Today" tabIcon="pulse"></ion-tab>
     <ion-tab [root]="tab2Root" tabTitle="Speakers" tabIcon="person"></ion-tab>
-    <ion-tab [root]="tab3Root" tabTitle="Messages" tabIcon="mail" badge="{{ messageBadge+1 }}" tabBadge="{{ messageBadge }}"></ion-tab>
+    <ion-tab [root]="tab3Root" tabTitle="Messages" tabIcon="mail"></ion-tab>
     <ion-tab [root]="tab4Root" tabTitle="Stats" tabIcon="stats"></ion-tab>
     <ion-tab [root]="tab5Root" tabTitle="About" tabIcon="information-circle"></ion-tab>
 
 </ion-tabs>
+
+
+<!--
+badge="{{ messageBadge+1 }}" tabBadge="{{ messageBadge }}"-->
