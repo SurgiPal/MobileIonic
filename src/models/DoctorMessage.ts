@@ -1,9 +1,9 @@
  'use strict';
 import { FosUser } from './';
- 
+
 
 export interface DoctorMessage {
-    
+
 
     id?: number;
 

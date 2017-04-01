@@ -1,13 +1,14 @@
 import { LoggerService } from './../../providers/logger.services';
 import { FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { Message } from './../../models/message';
+// import { Message } from './../../models/message';
 import { AuthService } from './../../providers/auth.service';
 // import { Headers } from '@angular/http';
 
 import { AuthHttp } from 'angular2-jwt';
 import { CONFIGURATION } from './../../providers/app.constants';
 import { Injectable } from '@angular/core';
+import { Message } from "../../models/message";
 
 
 @Injectable()
@@ -28,7 +29,7 @@ export class MessageService
       .then(response => response.json() as Message[])
       .catch(this.handleError);
   }
- 
+
 
   sendEmail(emailForm: FormGroup): Promise<Message>
 {

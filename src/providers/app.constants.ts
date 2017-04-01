@@ -10,9 +10,8 @@ export let CONFIGURATION = {
   baseUrls: {
  // server: 'http://localhost:32799/',
  // apiUrl: 'http://localhost:32799/api/'
-     // server: 'http://surgipalapi.azurewebsites.net/',
-    server: 'https://foodchooser.azurewebsites.net/',
-    apiUrl: 'http://surgipalapi.azurewebsites.net/api/'
+      server: 'http://surgipalapi.azurewebsites.net/',
+     apiUrl: 'http://surgipalapi.azurewebsites.net/api/'
   }
 }
 

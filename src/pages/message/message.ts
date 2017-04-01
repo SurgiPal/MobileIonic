@@ -34,7 +34,7 @@ export class MessageListPage {
     this.presentLoading();
     this.refreshData();
   }
- 
+
  refreshData(){
    this._service.getAll().then(data =>
    {
@@ -62,8 +62,9 @@ export class MessageListPage {
 
 
   showDetails(msg: any) {
+    console.log('showing message detail')
     this.navCtrl.push(MessageDetailPage, msg);
-  } 
+  }
   showContactInfo(msg: any) {
     let mode = this.config.get('mode');
 
@@ -94,7 +95,7 @@ export class MessageListPage {
   {
     let loader = this.loadingCtrl.create({
       content: "Getting Messages...",
-      duration: 5000,
+      duration: 1000,
       dismissOnPageChange: true
     });
     loader.present();
@@ -108,7 +109,7 @@ export class MessageListPage {
       showCloseButton: true
     });
     toast.present();
-  } 
+  }
 
 
 }

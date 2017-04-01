@@ -5,11 +5,11 @@
       Cancel
     </button>
         </ion-buttons>
-        <ion-title>CPT Codes</ion-title>
+        <ion-title>{{codeType}} Codes</ion-title>
     </ion-navbar>
 </ion-header>
 <ion-content padding class="sample-modal-page">
-    <div> Here are the codes for surgery <strong>{{ pulseItem.surgeryName }}</strong></div>
+    <div> Here are the {{codeType}} for surgery <strong>{{ pulseItem.surgeryName }}</strong></div>
     <ion-list *ngFor="let c of codes">
 
         <ion-chip #chip>

@@ -1,5 +1,5 @@
 export interface DoctorMessage
-{ 
+{
   id?: number;
 
   userId?: number;
@@ -12,5 +12,7 @@ export interface DoctorMessage
 
   views?: number;
 
-  senderId?: number; 
+  senderId?: number;
 }
+
+

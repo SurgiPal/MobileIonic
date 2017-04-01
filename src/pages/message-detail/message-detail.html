@@ -1,25 +1,21 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>{{message.subject}}</ion-title>
+        <ion-title>Message Detail</ion-title>
     </ion-navbar>
 </ion-header>
 
-<ion-content padding class="speaker-detail">
 
-    <div text-center>
-        <img [src]="message.doctorImage" [alt]="message.doctorName"><br>
 
-        <button ion-button icon-only clear small color="twitter">
-      <ion-icon name="logo-twitter"></ion-icon>
-    </button>
-        <button ion-button icon-only clear small color="github">
-      <ion-icon name="logo-github"></ion-icon>
-    </button>
-        <button ion-button icon-only clear small color="instagram">
-      <ion-icon name="logo-instagram"></ion-icon>
-    </button>
-    </div>
+<ion-content padding  class="message-detail">
+    <h1>{{message.subject}}</h1>
 
+
+    <p>
+        {{message.createdAt | date:'shortDate' }}
+    </p>
+
+
+   <p *ngIf="message.sender">{{message.sender.email}}</p>
+      <p>{{message.views}}</p>
     <p>{{message.message}}</p>
-
 </ion-content>

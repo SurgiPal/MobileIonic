@@ -1,9 +1,9 @@
 import { AuthService } from './../../providers/auth.service';
-import { Component } from '@angular/core'; 
-import { AlertController, NavController } from 'ionic-angular'; 
+import { Component } from '@angular/core';
+import { AlertController, NavController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { SupportPage } from '../support/support';
- 
+
 
 @Component({
   selector: 'page-account',
@@ -48,7 +48,13 @@ export class AccountPage {
 
     alert.present();
   }
+  getPicture() {
+    if (this.auth.user.picture)
+    return this.auth.user.picture;
+    else
+    return 'assets/img/person-flat.png';
 
+  }
   getUsername() {
     this.auth.getUsername().then((username) => {
       this.username = username;

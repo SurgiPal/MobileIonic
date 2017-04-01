@@ -27,32 +27,28 @@
 
                         <ion-card-header>
                             <button ion-item detail-none (click)="showDetails(m)">
-        {{m.subject}}
-      </button>
+                              {{m.subject}}
+                            </button>
                         </ion-card-header>
 
                         <ion-card-content class="outer-content">
                             <h3>{{m.message}}</h3>
-                            <ion-list>
-
-
-                            </ion-list>
                         </ion-card-content>
 
                         <ion-row no-padding>
-                            <ion-col text-left>
+                            <ion-col text-left col-md-4>
                                 <button ion-button clear small color="primary" icon-left (click)="reply(m)">
-          <ion-icon name='undo'></ion-icon>
-         Reply
-        </button>
+                                  <ion-icon name='undo'></ion-icon>
+                                Reply
+                                </button>
                             </ion-col>
-                            <ion-col text-center>
+                            <ion-col text-center  col-md-4>
                                 <button ion-button clear small color="primary" icon-left (click)="showDetails(m)">
           <ion-icon name='share-alt'></ion-icon>
          Details
         </button>
                             </ion-col>
-                            <ion-col text-right>
+                            <ion-col text-right  col-md-4>
                                 <button ion-button clear small color="primary" icon-left (click)="showContactInfo(m)">
           <ion-icon name='chatboxes'></ion-icon>
           Contact
@@ -64,4 +60,8 @@
             </ion-row>
         </ion-grid>
     </ion-list>
+        <ion-list-header [hidden]="messages !== 0">
+        No Messages Today!
+    </ion-list-header>
+
 </ion-content>

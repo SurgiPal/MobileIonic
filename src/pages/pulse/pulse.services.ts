@@ -4,6 +4,7 @@ import { Pulse } from './../../models/pulse';
 import { AuthHttp } from 'angular2-jwt';
 import { CONFIGURATION } from './../../providers/app.constants';
 import { Injectable } from '@angular/core';
+import { Surgery } from "../../models/Surgery";
 
 
 @Injectable()
@@ -21,22 +22,20 @@ export class  PulseService {
   {
 
   }
-  getAll(): Promise<Pulse[]>
+  getAll(): Promise<Surgery[]>
   {
+
     console.log('URL:', this.auth);
-    var url=CONFIGURATION.baseUrls.apiUrl +'pulse/' + this.auth.surgipalId;
+    // var url=CONFIGURATION.baseUrls.apiUrl +'surgeries/past/' + this.auth.surgipalId;
+ var url=CONFIGURATION.baseUrls.apiUrl +'surgeries/past/12';
     console.log('URL:',url);
-    console.log('getAll()');
+    console.log('getAll surgeries()');
    // return this.authHttp.get(url, { headers: this.headers })
     return this.authHttp.get(url)
       .toPromise()
-      .then(response => response.json() as Pulse[])
+      .then(response => response.json() as Surgery[])
       .catch(this.handleError);
   }
-
-
-
-
 
 
   private handleError(error: any) {

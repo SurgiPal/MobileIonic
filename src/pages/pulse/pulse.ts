@@ -11,6 +11,8 @@ import { AlertController, App, FabContainer, ItemSliding, List, ModalController,
 import { ScheduleFilterPage } from '../schedule-filter/schedule-filter';
 import { SessionDetailPage } from '../session-detail/session-detail';
 import { PulseService } from "./pulse.services";
+import { Surgery } from "../../models/Surgery";
+import { SurgeryDetailPage } from "../surgery-detail/surgery-detail";
 
 
 @Component({
@@ -22,7 +24,7 @@ export class PulsePage {
   // @ViewChild('scheduleList') gets a reference to the list
   // with the variable #scheduleList, `read: List` tells it to return
   // the List and not a reference to the element
-  @ViewChild('scheduleList', { read: List }) scheduleList: List;
+  @ViewChild('surgeryList', { read: List }) surgeryList: List;
   selectedPulse: Pulse;
   dayIndex = 0;
   queryText = '';
@@ -51,20 +53,21 @@ export class PulsePage {
 
   updateSchedule() {
     // Close any open sliding items when the schedule updates
-    this.scheduleList && this.scheduleList.closeSlidingItems();
+    this.surgeryList && this.surgeryList.closeSlidingItems();
 
 
 this.presentLoading();
     this._service.getAll().then(data =>
     {
-      console.log(data);
+      console.log('Pulse Data:', data);
       this.surgeries = data;
 
     })
-      .catch(error =>
-      {
+     .catch(this.handleError);
+      // .catch(error =>
+      // {
 
-      });
+      // });
 
     // this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) =>
     // {
@@ -86,7 +89,7 @@ this.presentLoading();
     let url = CONFIGURATION.baseUrls.apiUrl + 'pulse/' + this.auth.surgipalId;
     return this.authHttp.get(url, { headers: this.headers })
       .toPromise()
-      .then(response => response.json() as Pulse[])
+      .then(response => response.json() as Surgery[])
       .then(refresher.complete())
       .catch(this.handleError);
   }
@@ -113,14 +116,13 @@ this.presentLoading();
         this.updateSchedule();
       }
     });
-
   }
 
-  goToSessionDetail(sessionData: any) {
+  showDetail(s: any) {
     // go to the session detail page
     // and pass in the session data
     this.presentAlert('goto ');
-    this.navCtrl.push(SessionDetailPage, sessionData);
+    this.navCtrl.push(SurgeryDetailPage, s);
   }
 
   addFavorite(slidingItem: ItemSliding, sessionData: any) {
@@ -207,22 +209,22 @@ this.presentLoading();
     p.remove();
   }
 
-  presentProfileModal()
+  presentCodeModal(codeType:string)
   {
     console.log('Selected Pulse Id ', this.selectedPulse.id);
     //  var codes = this.selectedPulse.cptCodes.split(',');
     //  console.log('codes',codes);
     //  debugger;
-    let profileModal = this.modalCtrl.create(CodeDetails, { pulseItem: this.selectedPulse }, {
+    let profileModal = this.modalCtrl.create(CodeDetails, { pulseItem: this.selectedPulse, type:codeType }, {
       enterAnimation: 'modal-slide-in',
       leaveAnimation: 'modal-slide-out'
     });
     profileModal.present();
   }
-  showEditCPTCodes(p: Pulse)
+  showEditCodes(p: Pulse, codeType:string)
   {
     this.selectedPulse = p;
-    this.presentProfileModal();
+    this.presentCodeModal(codeType);
     console.log('showEditCPTCodes', p.patient.toString());
   }
 
@@ -244,7 +246,7 @@ this.presentLoading();
   presentLoading()
   {
     let loader = this.loadingCtrl.create({
-      content: "Please wait...",
+      content: "Checking pulse...",
       duration: 5000,
       dismissOnPageChange: true
     });

@@ -9,7 +9,7 @@
 
 <ion-content class="outer-content">
     <div padding-top text-center *ngIf="username">
-        <img src="http://www.gravatar.com/avatar?d=mm&s=140" alt="avatar">
+        <img src="{{auth.user.picture}}" alt="avatar">
         <h2>{{username}}</h2>
 
         <ion-list inset>
@@ -19,7 +19,7 @@
             <button ion-item (click)="support()">Support</button>
             <button ion-item (click)="logout()">Logout</button>
 
-
+   <p><strong>Picture: </strong> {{auth.user.picture}}</p>
             <p><strong>ID: </strong> {{auth.user.global_client_id}}</p>
             <p><strong>SpID: </strong> {{auth.surgipalId}}</p>
             <p><strong>Name: </strong> {{auth.user.name}}</p>
