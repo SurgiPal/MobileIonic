@@ -26,8 +26,8 @@ export class  PulseService {
   {
 
     console.log('URL:', this.auth);
-    // var url=CONFIGURATION.baseUrls.apiUrl +'surgeries/past/' + this.auth.surgipalId;
- var url=CONFIGURATION.baseUrls.apiUrl +'surgeries/past/12';
+    var url=CONFIGURATION.baseUrls.apiUrl +'surgeries/past/' + this.auth.surgipalId;
+// var url=CONFIGURATION.baseUrls.apiUrl +'surgeries/past/12';
     console.log('URL:',url);
     console.log('getAll surgeries()');
    // return this.authHttp.get(url, { headers: this.headers })
