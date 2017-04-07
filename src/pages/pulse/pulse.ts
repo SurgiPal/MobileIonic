@@ -47,7 +47,7 @@ export class PulsePage {
 
   ionViewDidLoad() {
     this.app.setTitle('Todays Pulse');
-    if (this.auth.surgipalId !== undefined)
+    if (this.auth.fosId !== undefined)
     this.updateSchedule();
   }
 
@@ -86,7 +86,7 @@ this.presentLoading();
 
   doRefresh(refresher)
   {
-    let url = CONFIGURATION.baseUrls.apiUrl + 'pulse/' + this.auth.surgipalId;
+    let url = CONFIGURATION.baseUrls.apiUrl + 'pulse/' + this.auth.fosId;
     return this.authHttp.get(url, { headers: this.headers })
       .toPromise()
       .then(response => response.json() as Surgery[])

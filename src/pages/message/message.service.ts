@@ -9,24 +9,24 @@ import { AuthHttp } from 'angular2-jwt';
 import { CONFIGURATION } from './../../providers/app.constants';
 import { Injectable } from '@angular/core';
 import { Message } from "../../models/message";
+import { Http } from "@angular/http";
 
 
 @Injectable()
 export class MessageService
 {
 
-
-  constructor(private authHttp: AuthHttp, private auth: AuthService,private logger : LoggerService)
+  constructor(private http: Http, private authHttp: AuthHttp, private auth: AuthService,private logger : LoggerService)
   {
-
   }
   getAll(): Promise<Message[]>
   {
-    var url = CONFIGURATION.baseUrls.apiUrl + 'messages/doctors/' + this.auth.surgipalId;
+   // var url = CONFIGURATION.baseUrls.apiUrl + 'messages/doctors/' + this.auth.surgipalId;
+   var url =CONFIGURATION.apiUrls.message + '?transform=1&order=created_at,desc&filter[]=user_id,eq,' + this.auth.fosId
     console.log('Message URL:', url);
-    return this.authHttp.get(url)
+    return this.http.get(url)
       .toPromise()
-      .then(response => response.json() as Message[])
+      .then(response => response.json().doctor_message as Message[])
       .catch(this.handleError);
   }
 

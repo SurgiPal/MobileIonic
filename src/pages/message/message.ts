@@ -38,7 +38,7 @@ export class MessageListPage {
  refreshData(){
    this._service.getAll().then(data =>
    {
-     console.log('Got messages from service:', data)
+     console.log('Got messages from service:', data);
      this.messages = data;
    });
  }
@@ -67,6 +67,8 @@ export class MessageListPage {
   }
   showContactInfo(msg: any) {
     let mode = this.config.get('mode');
+
+
 
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Contact ' + msg.name,

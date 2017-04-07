@@ -26,14 +26,16 @@ export class  PulseService {
   {
 
     console.log('URL:', this.auth);
-    var url=CONFIGURATION.baseUrls.apiUrl +'surgeries/past/' + this.auth.surgipalId;
+    var url='http://surgipal.com/api/api.php/surgery/?transform=1&filter=doctor_id,eq,' + + this.auth.fosId;
+
+
 // var url=CONFIGURATION.baseUrls.apiUrl +'surgeries/past/12';
     console.log('URL:',url);
     console.log('getAll surgeries()');
    // return this.authHttp.get(url, { headers: this.headers })
     return this.authHttp.get(url)
       .toPromise()
-      .then(response => response.json() as Surgery[])
+      .then(response => response.json().surgery as Surgery[])
       .catch(this.handleError);
   }
 

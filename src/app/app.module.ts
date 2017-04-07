@@ -35,6 +35,7 @@ import { ConferenceData } from '../providers/conference-data';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 import { PulseService } from "../pages/pulse/pulse.services";
 import { MessageListPage } from "../pages/message/message";
+import { MessageReplyModal } from "../pages/message/message-reply";
 let storage: Storage = new Storage();
 
 export function getAuthHttp(http)
@@ -66,7 +67,7 @@ export function getAuthHttp(http)
     ParamModal,
     PulsePage,
     CodeDetails,
-    MessageListPage,MessageDetailPage
+    MessageListPage,MessageDetailPage,MessageReplyModal
   ],
   imports: [
     IonicModule.forRoot(ConferenceApp)
@@ -90,7 +91,7 @@ export function getAuthHttp(http)
     SupportPage,
     GloveSizeComponent ,
     ParamModal,
-    CodeDetails, MessageListPage, MessageDetailPage
+    CodeDetails, MessageListPage, MessageDetailPage,MessageReplyModal
   ],
   providers: [AuthService,
     {

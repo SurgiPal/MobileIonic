@@ -24,6 +24,9 @@ export class MessageReplyModal
   )
   {
     this.message = this.params.get('m');
+
+
+
     //this.surgery = this.params.get('s');
     if (this.message === undefined) {
       // this.message = new DoctorMessage(-1, '');
@@ -32,7 +35,7 @@ export class MessageReplyModal
     this.mailForm = this.formBuilder.group({
       to: ['', Validators.compose([Validators.minLength(5), Validators.maxLength(255), Validators.required])],
       from: ['', Validators.compose([Validators.minLength(5), Validators.maxLength(255), Validators.required])],
-      subject: ['', Validators.compose([Validators.minLength(5), Validators.maxLength(255), Validators.required])],
+      subject: ['RE' + this.message.subject, Validators.compose([Validators.minLength(5), Validators.maxLength(255), Validators.required])],
       message: ['', Validators.compose([Validators.minLength(10), Validators.maxLength(1000), Validators.required])]
     });
   }
