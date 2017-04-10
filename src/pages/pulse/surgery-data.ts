@@ -22,7 +22,7 @@ export class SurgeryData {
     if (this.data) {
       return Observable.of(this.data);
     } else {
-         var url=CONFIGURATION.baseUrls.apiUrl +'surgeries/past/' + this.auth.surgipalId;
+         var url=CONFIGURATION.baseUrls.apiUrl +'surgeries/past/' + this.auth.fosId;
       return this.authHttp.get(url)
         .map(this.processData, this);
     }

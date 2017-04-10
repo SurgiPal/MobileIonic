@@ -18,15 +18,15 @@
 
     </ion-list>
 </ion-content>-->
-<ion-content class="outer-content speaker-list">
+<ion-content class="outer-content message-list">
     <ion-list>
         <ion-grid fixed>
             <ion-row align-items-stretch>
-                <ion-col col-12 col-md-6 align-self-stretch align-self-center *ngFor="let m of messages">
-                    <ion-card class="speaker-card">
+                <ion-col col-12 col-md-12 align-self-stretch align-self-center *ngFor="let m of messages">
+                    <ion-card class="message-card">
 
-                        <ion-card-header>
-                            <button ion-item detail-none (click)="showDetails(m)">
+                        <ion-card-header  >
+                            <button ion-item detail-none (click)="showDetails(m)"  [attr.class]="m.viewed==0 ? 'isRead1' : 'isRead0'">
                               {{m.subject}}
                             </button>
                         </ion-card-header>

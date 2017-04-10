@@ -26,7 +26,11 @@ export class TabsPage {
   mySelectedIndex: number;
 
   constructor(navParams: NavParams) {
+<<<<<<< HEAD
     this.mySelectedIndex = navParams.data.tabIndex || 1;
+=======
+    this.mySelectedIndex = navParams.data.tabIndex || 2;
+>>>>>>> 0cf86d888a985682aaf793dfefdd358bc90739c5
 
     this.messageBadge = 3;
   }

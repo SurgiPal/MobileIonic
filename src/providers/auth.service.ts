@@ -45,14 +45,15 @@ export class AuthService
   refreshSubscription: any;
   user: any;
   globalId: any;
-  surgipalId: any;
+  fosId: number;
+  doctorId:number;
   roles: string[] = [];
   zoneImpl: NgZone;
   idToken: string;
   _favorites: string[] = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
   HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
-  constructor(private authHttp: AuthHttp, zone: NgZone, public http: Http, public events: Events )
+  constructor( private authHttp: AuthHttp, zone: NgZone, public http: Http, public events: Events )
   {
     this.zoneImpl = zone;
     // Check if there is a profile saved in local storage
@@ -71,7 +72,11 @@ export class AuthService
     });
     this.storage.get('surgipal_id').then(spid =>
     {
-      this.surgipalId = spid;
+      this.fosId = spid;
+    });
+    this.storage.get('doctor_id').then(did =>
+    {
+      this.doctorId = did;
     });
 
 
@@ -101,34 +106,34 @@ export class AuthService
         this.storage.set('profile', JSON.stringify(profile));
         this.user = profile;
         this.globalId = this.user.global_user_id;
-
-        this.getSurgiPalId();
-        this.storage.set('surgipal_id', this.surgipalId);
+        this.getUserData();
         this.roles = this.user.app_metadata.authorization.roles;
-          console.log('Roels',this.roles)
+          console.log('Roles',this.roles)
         this.setUsername(this.user.name);
-
       });
       this.lock.hide();
-
       this.storage.set('refresh_token', authResult.refreshToken);
       this.zoneImpl.run(() => this.user = authResult.profile);
       // Schedule a token refresh
       this.scheduleRefresh();
-
     });
   }
-  getSurgiPalId()
+
+  getUserData()
   {
-    let url = CONFIGURATION.baseUrls.apiUrl+ 'security/' + this.user.email;
-    this.authHttp.get(url)
+    let url = 'http://surgipal.com/api/api.php/fos_user/?transform=1&columns=id,doctor_data_id&filter=email,eq,' + this.user.email;
+    this.http.get(url)
       .subscribe(
-      data => { this.surgipalId = data.text(); this.storage.set('surgipal_id', data.text());},
+      data => {
+        this.fosId = data.json().fos_user[0].id;
+        this.doctorId=data.json().fos_user[0].doctor_data_id;
+         this.storage.set('doctor_id', data.json().fos_user[0].doctor_data_id);
+        this.storage.set('surgipal_id',data.json().fos_user[0].id);
+       },
       err => console.error(err),
-      () => console.log('Got Surgipal Id:' + this.surgipalId)
+      () => console.log('Got Surgipal Id:' + this.fosId)
       );
   }
-
   public getRefreshToken()
   {
     return new Promise((resolve) =>
