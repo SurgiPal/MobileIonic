@@ -10,8 +10,13 @@ export let CONFIGURATION = {
   baseUrls: {
  // server: 'http://localhost:32799/',
  // apiUrl: 'http://localhost:32799/api/'
-      server: 'http://surgipalapi.azurewebsites.net/',
-     apiUrl: 'http://surgipalapi.azurewebsites.net/api/'
+  //    server: 'http://surgipalapi.azurewebsites.net/',
+  //   apiUrl: 'http://surgipalapi.azurewebsites.net/api/',
+          apiUrl: 'http://surgipal.com/api/api.php/'
+  },
+  apiUrls: {
+    gloves: 'http://surgipal.com/api/api.php/glove_size'
+    
   }
 }
 

@@ -9,7 +9,8 @@ import 'rxjs/add/operator/toPromise';
 export class GloveSizeService {
   private headers = new Headers({ 'Content-Type': 'application/json' });
   public readonly serviceName = 'Glove Size';
-  private url = CONFIGURATION.baseUrls.server+ 'api/GloveSizes';  // URL to web api
+  private url = CONFIGURATION.baseUrl.a+ 'api/glove_size';  // URL to web api
+  //http://surgipal.com/api/api.php/glove_size?transform=1
   constructor(private authHttp: AuthHttp ) {
 
   }

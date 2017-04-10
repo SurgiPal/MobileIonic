@@ -6,6 +6,7 @@ import { ActionSheet, ActionSheetController, Config, NavController, LoadingContr
 import { InAppBrowser } from 'ionic-native';
 import { MessageDetailPage } from '../message-detail/message-detail';
 import { MessageService } from "./message.service";
+import { NotifyService } from "../../providers/notify.service";
 
 
 @Component({
@@ -25,22 +26,45 @@ export class MessageListPage {
     public navCtrl: NavController,
     public toastCtrl: ToastController,
     public modalCtrl:ModalController,
+    public _n:NotifyService,
     public config: Config
   ) {
     this.app.setTitle('Messages');
    }
 
   ionViewDidLoad() {
+
+if (this.auth.surgipalId===undefined) 
+{this._n.presentAlert('Unknown User','The current user, '+ this.auth.user.name + ' cannot be found.');
+  }
+  else
+  {
+  
     this.presentLoading();
-    this.refreshData();
+    this.refreshData();{}
+  }
   }
 
  refreshData(){
+
+   try{
+    
    this._service.getAll().then(data =>
    {
      console.log('Got messages from service:', data)
      this.messages = data;
+   }).catch(error=>{
+  let errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+      console.log('ERROR',errMsg);
+     this._n.presentAlert('Error', errMsg);
    });
+  }
+  catch(error)
+{
+
+   
+}
  }
   reply(msg?)
   {

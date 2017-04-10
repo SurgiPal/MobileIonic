@@ -22,6 +22,7 @@ export class MessageService
   }
   getAll(): Promise<Message[]>
   {
+    
     var url = CONFIGURATION.baseUrls.apiUrl + 'messages/doctors/' + this.auth.surgipalId;
     console.log('Message URL:', url);
     return this.authHttp.get(url)

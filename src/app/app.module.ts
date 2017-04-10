@@ -1,3 +1,4 @@
+import {SurgeryDetailPage} from '../pages/surgery-detail/surgery-detail';
 import { LoggerService } from './../providers/logger.services';
 import { NotifyService } from './../providers/notify.service';
 import { MessageDetailPage } from './../pages/message-detail/message-detail';
@@ -30,6 +31,7 @@ import { Storage } from '@ionic/storage';
 import { AuthService } from './../providers/auth.service';
 import { Http } from '@angular/http';
 import { ConferenceData } from '../providers/conference-data';
+
 //import { UserData } from '../providers/user-data';
 
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
@@ -67,6 +69,7 @@ export function getAuthHttp(http)
     PulsePage,
     CodeDetails,
     MessageListPage,MessageDetailPage
+    , SurgeryDetailPage
   ],
   imports: [
     IonicModule.forRoot(ConferenceApp)
@@ -90,7 +93,10 @@ export function getAuthHttp(http)
     SupportPage,
     GloveSizeComponent ,
     ParamModal,
-    CodeDetails, MessageListPage, MessageDetailPage
+    CodeDetails,
+     MessageListPage, 
+     MessageDetailPage
+    ,SurgeryDetailPage
   ],
   providers: [AuthService,
     {
